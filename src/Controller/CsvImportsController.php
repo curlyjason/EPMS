@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Model\Table\CsvImportsTable;
 use App\Model\Table\MaterialsTable;
 use Cake\Cache\Cache;
+use Cake\Filesystem\Folder;
 use Laminas\Diactoros\UploadedFile;
 use Stacks\Constants\LayerCon;
 use Stacks\Model\Lib\Layer;
@@ -34,15 +35,18 @@ class CsvImportsController extends AppController
     {
         $table = $this->CsvImports;
         $this->set(compact('table'));
+        $targets = $this->ormTables();
 
         if($this->getRequest()->is('post')){
             /**
              * @var UploadedFile $file
              */
             $file = $this->getRequest()->getData('file');
+            debug($this->getRequest()->getData());die;
             $file->moveTo(WWW_ROOT . 'files/workingFile.csv');
             return $this->redirect(['action' => 'map']);
         }
+        $this->set(compact('targets'));
     }
 
     public function map()
@@ -143,5 +147,24 @@ class CsvImportsController extends AppController
                 return $accum;
             }, []);
     }
+
+    /**
+     * Get an array of standard ORM table names (in alias form)
+     *
+     * @return mixed|null
+     */
+    public function ormTables() {
+        $tableDir = new Folder(APP.'Model'.DS.'Table');
+        $allFiles = ($tableDir->find('.*Table.php'));
+        $files = collection($allFiles)
+            ->reduce(function($accum, $file) {
+                if (!preg_match('/Stack/', $file)) {
+                    $accum[] = str_replace('Table.php', '', $file);
+                }
+                return $accum;
+            }, []);
+        return $files;
+    }
+
 
 }
