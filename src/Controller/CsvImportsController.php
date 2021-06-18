@@ -8,6 +8,7 @@ use App\Model\Table\CsvImportsTable;
 use App\Model\Table\MaterialsTable;
 use Cake\Cache\Cache;
 use Cake\Filesystem\Folder;
+use Cake\ORM\Entity;
 use Laminas\Diactoros\UploadedFile;
 use Stacks\Constants\LayerCon;
 use Stacks\Model\Lib\Layer;
@@ -23,6 +24,10 @@ class CsvImportsController extends AppController
      * @var MaterialsTable
      */
     private $Materials;
+    /**
+     * @var \Cake\Datasource\RepositoryInterface|string|string[]|null
+     */
+    private $primaryKey;
 
     public function initialize(): void
     {
@@ -101,6 +106,9 @@ class CsvImportsController extends AppController
 
     public function processMap()
     {
+        $target_table = Cache::read('target_table');
+        $this->$target_table = $this->getTableLocator()->get($target_table);
+        $primary_key = $this->primaryKey = $this->$target_table->getPrimaryKey();
         $map = Cache::read('map');
         $key = Cache::read('key');
         $reduced_map = $this->reduceMap($map, $key);
@@ -111,29 +119,29 @@ class CsvImportsController extends AppController
                 $accum[] = $record->$key;
                 return $accum;
             }, []);
-        $materials = $this->Materials->find('all')
+        $target_records = $this->$target_table->find('all')
             ->where(['MaterialCode IN' => $find_array])
             ->toArray();
 
         if ($this->getRequest()->is('post')){
-            $patch = $this->setupPatch($materials, $imp_layer, $reduced_map);
-            $entities_to_save = $this->Materials->patchEntities($materials, $patch);
-            $result = $this->Materials->saveMany($entities_to_save);
+            $patch = $this->setupPatch($target_records, $imp_layer, $reduced_map);
+            $entities_to_save = $this->$target_table->patchEntities($target_records, $patch);
+            $result = $this->$target_table->saveMany($entities_to_save);
         }
 
-        $this->set(compact('map', 'key', 'materials', 'imp_layer', 'reduced_map'));
+        $this->set(compact('map', 'key', 'target_records', 'imp_layer', 'reduced_map', 'primary_key'));
     }
 
-    private function setupPatch(array $materials, Layer $imp_layer, $reduced_map)
+    private function setupPatch(array $target_records, Layer $imp_layer, $reduced_map)
     {
-        return collection($materials)
-            ->reduce(function($accum, $material) use ($imp_layer, $reduced_map){
+        return collection($target_records)
+            ->reduce(function($accum, $target_record) use ($imp_layer, $reduced_map){
                 $full_patch = collection ($reduced_map)
-                    ->reduce(function($patch, $target_key, $source_key) use ($material, $imp_layer){
-                        $patch[$target_key] = $imp_layer->element($material->MaterialCode, LayerCon::LAYERACC_ID)->$source_key;
+                    ->reduce(function($patch, $target_key, $source_key) use ($target_record, $imp_layer){
+                        $patch[$target_key] = $imp_layer->element($target_record->{$this->primaryKey}, LayerCon::LAYERACC_ID)->$source_key;
                         return $patch;
                     }, []);
-                $full_patch['MaterialCode'] = $material->MaterialCode;
+                $full_patch[$this->primaryKey] = $target_record->{$this->primaryKey};
                 $accum[] = $full_patch;
              return $accum;
         }, []);
@@ -166,6 +174,17 @@ class CsvImportsController extends AppController
                 return $accum;
             }, []);
         return array_combine($files, $files);
+    }
+
+    /**
+     * @param Entity $target_record
+     */
+    private function getPrimaryKey($target_record)
+    {
+        $alias = $target_record->getSource();
+        $table = $this->getTableLocator()->get($alias);
+        return $table->getPrimaryKey();
+
     }
 
 

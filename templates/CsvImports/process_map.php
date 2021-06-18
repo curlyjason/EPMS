@@ -9,10 +9,11 @@ use Stacks\Model\Lib\Layer;
 /**
  * @var AppView $this
  * @var Entity[] $import
- * @var Material[] $materials
+ * @var Entity[] $target_records
  * @var array $map
  * @var array $reduced_map
  * @var Layer $imp_layer
+ * @var string $primary_key
  */
 
 ?>
@@ -26,13 +27,13 @@ use Stacks\Model\Lib\Layer;
         <?php endforeach; ?>
     </tr>
     <?php
-    foreach ($materials as $material) {
+    foreach ($target_records as $target_record) {
         echo '<tr>';
-        echo $this->Html->tag('td', $material->MaterialCode);
-        echo $this->Html->tag('td', $material->Description);
+        echo $this->Html->tag('td', $target_record->$primary_key);
+        echo $this->Html->tag('td', $target_record->Description);
         foreach ($reduced_map as $source_key => $target_key) {
-            $source = $imp_layer->element($material->MaterialCode, LayerCon::LAYERACC_ID)->$source_key;
-            $target = $material->$target_key;
+            $source = $imp_layer->element($target_record->$primary_key, LayerCon::LAYERACC_ID)->$source_key;
+            $target = $target_record->$target_key;
             echo $this->Html->tag('td', "$source => <strike>$target</strike>");
         }
         echo '</tr>';
