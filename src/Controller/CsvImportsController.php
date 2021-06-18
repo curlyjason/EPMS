@@ -120,7 +120,7 @@ class CsvImportsController extends AppController
                 return $accum;
             }, []);
         $target_records = $this->$target_table->find('all')
-            ->where(['MaterialCode IN' => $find_array])
+            ->where(["$primary_key IN" => $find_array])
             ->toArray();
 
         if ($this->getRequest()->is('post')){

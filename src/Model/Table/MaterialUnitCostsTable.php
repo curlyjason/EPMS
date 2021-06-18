@@ -39,7 +39,8 @@ class MaterialUnitCostsTable extends Table
 
         $this->setTable('MaterialUnitCost');
         $this->setDisplayField('MaterialCode');
-        $this->setPrimaryKey(['MaterialCode', 'Quantity']);
+//        $this->setPrimaryKey(['MaterialCode', 'Quantity']);
+        $this->setPrimaryKey('MaterialCode');
     }
 
     /**
