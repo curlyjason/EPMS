@@ -42,7 +42,7 @@ class CsvImportsController extends AppController
              * @var UploadedFile $file
              */
             $file = $this->getRequest()->getData('file');
-            debug($this->getRequest()->getData());die;
+            Cache::write('target_table', $this->getRequest()->getData('target'));
             $file->moveTo(WWW_ROOT . 'files/workingFile.csv');
             return $this->redirect(['action' => 'map']);
         }
@@ -51,8 +51,10 @@ class CsvImportsController extends AppController
 
     public function map()
     {
+        $target_table = Cache::read('target_table');
+        $this->$target_table = $this->getTableLocator()->get($target_table);
         $this->ImportedData = $this->CsvImports->import('workingFile.csv');
-        $target_columns = $this->Materials->getSchema()->columns();
+        $target_columns = $this->$target_table->getSchema()->columns();
         $target_columns = array_combine($target_columns, $target_columns);
         $source_columns = $this->CsvImports->getSchema()->columns();
 
@@ -61,7 +63,7 @@ class CsvImportsController extends AppController
             return $this->redirect(['action' => 'processMap']);
         }
 
-        $this->set(compact('target_columns', 'source_columns'));
+        $this->set(compact('target_columns', 'source_columns', 'target_table'));
     }
 
     public function validMap(): bool

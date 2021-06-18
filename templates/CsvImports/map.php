@@ -6,7 +6,10 @@ use App\View\AppView;
  * @var AppView $this
  * @var array $target_columns
  * @var array $source_columns
+ * @var string $target_table
  */
+
+debug($target_table);
 
 echo $this->Form->create();
 foreach ($source_columns as $source_column) {
