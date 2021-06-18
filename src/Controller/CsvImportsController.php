@@ -97,6 +97,7 @@ class CsvImportsController extends AppController
     {
         $map = Cache::read('map');
         $key = Cache::read('key');
+        $reduced_map = $this->reduceMap($map, $key);
         $import = $this->CsvImports->import('workingFile.csv');
         $imp_layer = new Layer($import, 'CsvImport');
         $find_array = collection($import)
@@ -109,13 +110,12 @@ class CsvImportsController extends AppController
             ->toArray();
 
         if ($this->getRequest()->is('post')){
-            $reduced_map = $this->reduceMap($map, $key);
             $patch = $this->setupPatch($materials, $imp_layer, $reduced_map);
             $entities_to_save = $this->Materials->patchEntities($materials, $patch);
             $result = $this->Materials->saveMany($entities_to_save);
         }
 
-        $this->set(compact('map', 'key', 'materials', 'imp_layer'));
+        $this->set(compact('map', 'key', 'materials', 'imp_layer', 'reduced_map'));
     }
 
     private function setupPatch(array $materials, Layer $imp_layer, $reduced_map)
