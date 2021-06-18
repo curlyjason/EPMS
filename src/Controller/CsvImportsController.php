@@ -163,7 +163,7 @@ class CsvImportsController extends AppController
                 }
                 return $accum;
             }, []);
-        return $files;
+        return array_combine($files, $files);
     }
 
 

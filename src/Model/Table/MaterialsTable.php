@@ -38,7 +38,7 @@ class MaterialsTable extends Table
         parent::initialize($config);
 
         $this->setTable('Material');
-        $this->setDisplayField('MaterialCode');
+        $this->setDisplayField('Description');
         $this->setPrimaryKey('MaterialCode');
 
         $this->hasMany('MaterialUnitCosts')
