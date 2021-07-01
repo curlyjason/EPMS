@@ -35,11 +35,27 @@ class CsvImportsController extends AppController
         $this->Materials = $this->getTableLocator()->get('Materials');
     }
 
-
     public function add()
     {
         $table = $this->CsvImports;
-        $this->set(compact('table'));
+        $targets = $this->ormTables();
+
+        if($this->getRequest()->is('post')) {
+            /**
+             * @var UploadedFile $file
+             */
+            $file = $this->getRequest()->getData('file');
+            Cache::write('target_table', $this->getRequest()->getData('target'));
+            $file->moveTo(WWW_ROOT . 'files/workingFile.csv');
+            return $this->redirect(['action' => 'map']);
+        }
+
+        $this->set(compact('table', 'targets'));
+    }
+
+    public function edit()
+    {
+        $table = $this->CsvImports;
         $targets = $this->ormTables();
 
         if($this->getRequest()->is('post')){
@@ -51,7 +67,8 @@ class CsvImportsController extends AppController
             $file->moveTo(WWW_ROOT . 'files/workingFile.csv');
             return $this->redirect(['action' => 'map']);
         }
-        $this->set(compact('targets'));
+
+        $this->set(compact('table', 'targets'));
     }
 
     public function map()
