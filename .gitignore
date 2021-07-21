@@ -41,4 +41,4 @@ nbproject/*
 .vscode
 # Sass preprocessor
 .sass-cache/
-/webroot/files/workingFile.csv
+/webroot/files/*
