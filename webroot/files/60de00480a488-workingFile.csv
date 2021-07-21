@@ -1,0 +1,113 @@
+﻿id,Description,RFQ_Description,Color,Basis_WT,M_Weight,Basic_Area,Caliper,Size_Width,Size_Length,Supplier_ID,Supplier_Name,Suplier_Item,Costing_Method,Primary_Valuation,_GL_Expense_Code,UserDefined_1,UserDefined_2,UserDefined_3,Unit_Cost,PO_Unit_Cost
+1110290,ChorusArt Cover Gloss,ChorusArt Cover Gloss,White,80,146,6,0.0076,19,25,10259,Spicers US,1110290,2,1,4510.02,,9000,Updated_Prices_6_21_RF,106.348736,103.2512
+1110291,ChorusArt Cover Gloss,ChorusArt Cover Gloss,White,80,160,6,0.0076,20,26,10259,Spicers US,1110291,2,1,4510.02,,9000,Updated_Prices_6_21_RF,116.54656,113.152
+1110293,ChorusArt Cover Gloss,ChorusArt Cover Gloss,White,80,320,6,0.0076,26,40,10259,Spicers US,1110293,2,1,4510.02,,4500,Updated_Prices_6_21_RF,233.09312,226.304
+1110294,ChorusArt Cover Gloss,ChorusArt Cover Gloss,White,80,345,6,0.0076,28,40,10259,Spicers US,1110294,2,1,4510.02,,4500,Updated_Prices_6_21_RF,251.30352,243.984
+1110295,ChorusArt Cover Gloss,ChorusArt Cover Gloss,White,100,200,6,0.0099,20,26,10259,Spicers US,1110295,2,1,4510.02,,8000,Updated_Prices_6_21_RF,145.6832,141.44
+1110296,ChorusArt Cover Gloss,ChorusArt Cover Gloss,White,100,400,6,0.0099,26,40,10259,Spicers US,1110296,2,1,4510.02,,4000,Updated_Prices_6_21_RF,291.3664,282.88
+1110297,ChorusArt Cover Gloss,ChorusArt Cover Gloss,White,100,431,6,0.0099,28,40,10259,Spicers US,1110297,2,1,4510.02,,4000,Updated_Prices_6_21_RF,313.947296,304.8032
+1110298,ChorusArt Cover Gloss,ChorusArt Cover Gloss,White,130,260,6,0.0126,20,26,10259,Spicers US,1110298,2,1,4510.02,,6000,Updated_Prices_6_21_RF,189.38816,183.872
+1110299,ChorusArt Cover Gloss,ChorusArt Cover Gloss,White,130,475,6,0.0126,25,38,10259,Spicers US,1110299,2,1,4510.02,,3000,Updated_Prices_6_21_RF,345.9976,335.92
+1110300,ChorusArt Cover Gloss,ChorusArt Cover Gloss,White,130,520,6,0.0126,26,40,10259,Spicers US,1110300,2,1,4510.02,,3000,Updated_Prices_6_21_RF,378.77632,367.744
+1110301,ChorusArt Cover Gloss,ChorusArt Cover Gloss,White,130,560,6,0.0126,28,40,10259,Spicers US,1110301,2,1,4510.02,,3000,Updated_Prices_6_21_RF,407.91296,396.032
+1110345,ChorusArt Cover Gloss,ChorusArt Cover Gloss,White,80,214,6,0.0076,24,29,10259,Spicers US,1110345,2,1,4510.02,,4500,Updated_Prices_6_21_RF,155.881024,151.3408
+1110346,ChorusArt Cover Gloss,ChorusArt Cover Gloss,White,80,253,6,0.0076,23.5,35,10259,Spicers US,1110346,2,1,4510.02,,4500,Updated_Prices_6_21_RF,184.289248,178.9216
+1110347,ChorusArt Cover Gloss,ChorusArt Cover Gloss,White,80,298,6,0.0076,25.5,38,10259,Spicers US,1110347,2,1,4510.02,,4500,Updated_Prices_6_21_RF,217.067968,210.7456
+1110348,ChorusArt Cover Gloss,ChorusArt Cover Gloss,White,100,183,6,0.0099,19,25,10259,Spicers US,1110348,2,1,4510.02,,8000,Updated_Prices_6_21_RF,133.300128,129.4176
+1110349,ChorusArt Cover Gloss,ChorusArt Cover Gloss,White,100,262,6,0.0099,23.5,29,10259,Spicers US,1110349,2,1,4510.02,,4000,Updated_Prices_6_21_RF,190.844992,185.2864
+1110350,ChorusArt Cover Gloss,ChorusArt Cover Gloss,White,100,268,6,0.0099,24,29,10259,Spicers US,1110350,2,1,4510.02,,4000,Updated_Prices_6_21_RF,195.215488,189.5296
+1110351,ChorusArt Cover Gloss,ChorusArt Cover Gloss,White,100,316,6,0.0099,23.5,35,10259,Spicers US,1110351,2,1,4510.02,,4000,Updated_Prices_6_21_RF,230.179456,223.4752
+1110352,ChorusArt Cover Gloss,ChorusArt Cover Gloss,White,100,332,6,0.0099,24,36,10259,Spicers US,1110352,2,1,4510.02,,4000,Updated_Prices_6_21_RF,241.834112,234.7904
+1110353,ChorusArt Cover Gloss,ChorusArt Cover Gloss,White,100,373,6,0.0099,25.5,38,10259,Spicers US,1110353,2,1,4510.02,,4000,Updated_Prices_6_21_RF,271.699168,263.7856
+1110354,ChorusArt Cover Gloss,ChorusArt Cover Gloss,White,130,411,6,0.0126,23.5,35,10259,Spicers US,1110354,2,1,4510.02,,3000,Updated_Prices_6_21_RF,299.378976,290.6592
+1110397,ChorusArt Cover Gloss,ChorusArt Cover Gloss,White,63,199,6,0.0055,23.5,35,10259,Spicers US,1110397,2,1,4510.02,,6000,Updated_Prices_6_21_RF,144.954784,140.7328
+1110398,ChorusArt Cover Gloss,ChorusArt Cover Gloss,White,63,235,6,0.0055,25.5,38,10259,Spicers US,1110398,2,1,4510.02,,6000,Updated_Prices_6_21_RF,171.17776,166.192
+1110399,ChorusArt Cover Gloss,ChorusArt Cover Gloss,White,63,252,6,0.0055,26,40,10259,Spicers US,1110399,2,1,4510.02,,6000,Updated_Prices_6_21_RF,183.560832,178.2144
+1110400,ChorusArt Cover Gloss,ChorusArt Cover Gloss,White,63,271,6,0.0055,28,40,10259,Spicers US,1110400,2,1,4510.02,,6000,Updated_Prices_6_21_RF,197.400736,191.6512
+1110423,ChorusArt Cover Gloss,ChorusArt Cover Gloss,White,63,115,6,0.0055,19,25,10259,Spicers US,1110423,2,1,4510.02,,12000,Updated_Prices_6_21_RF,83.76784,81.328
+1110311,ChorusArt Cover Silk,ChorusArt Cover Silk,White,80,146,6,0.0085,19,25,10259,Spicers US,1110311,2,1,4510.02,,8000,Updated_Prices_6_21_RF,106.348736,103.2512
+1110312,ChorusArt Cover Silk,ChorusArt Cover Silk,White,80,160,6,0.0085,20,26,10259,Spicers US,1110312,2,1,4510.02,,8000,Updated_Prices_6_21_RF,116.54656,113.152
+1110313,ChorusArt Cover Silk,ChorusArt Cover Silk,White,80,320,6,0.0085,26,40,10259,Spicers US,1110313,2,1,4510.02,,4000,Updated_Prices_6_21_RF,233.09312,226.304
+1110314,ChorusArt Cover Silk,ChorusArt Cover Silk,White,80,345,6,0.0085,28,40,10259,Spicers US,1110314,2,1,4510.02,,4000,Updated_Prices_6_21_RF,251.30352,243.984
+1110315,ChorusArt Cover Silk,ChorusArt Cover Silk,White,100,183,6,0.0106,19,25,10259,Spicers US,1110315,2,1,4510.02,,7000,Updated_Prices_6_21_RF,133.300128,129.4176
+1110316,ChorusArt Cover Silk,ChorusArt Cover Silk,White,100,200,6,0.0106,20,26,10259,Spicers US,1110316,2,1,4510.02,,7000,Updated_Prices_6_21_RF,145.6832,141.44
+1110317,ChorusArt Cover Silk,ChorusArt Cover Silk,White,100,400,6,0.0106,26,40,10259,Spicers US,1110317,2,1,4510.02,,3500,Updated_Prices_6_21_RF,291.3664,282.88
+1110318,ChorusArt Cover Silk,ChorusArt Cover Silk,White,100,431,6,0.0106,28,40,10259,Spicers US,1110318,2,1,4510.02,,3500,Updated_Prices_6_21_RF,313.947296,304.8032
+1110319,ChorusArt Cover Silk,ChorusArt Cover Silk,White,130,260,6,0.0138,20,26,10259,Spicers US,1110319,2,1,4510.02,,5000,Updated_Prices_6_21_RF,189.38816,183.872
+1110320,ChorusArt Cover Silk,ChorusArt Cover Silk,White,130,475,6,0.0138,25,38,10259,Spicers US,1110320,2,1,4510.02,,2500,Updated_Prices_6_21_RF,345.9976,335.92
+1110321,ChorusArt Cover Silk,ChorusArt Cover Silk,White,130,560,6,0.0138,28,40,10259,Spicers US,1110321,2,1,4510.02,,2500,Updated_Prices_6_21_RF,407.91296,396.032
+1110369,ChorusArt Cover Silk,ChorusArt Cover Silk,White,80,214,6,0.0085,24,29,10259,Spicers US,1110369,2,1,4510.02,,4000,Updated_Prices_6_21_RF,155.881024,151.3408
+1110370,ChorusArt Cover Silk,ChorusArt Cover Silk,White,80,253,6,0.0085,23.5,35,10259,Spicers US,1110370,2,1,4510.02,,4000,Updated_Prices_6_21_RF,184.289248,178.9216
+1110371,ChorusArt Cover Silk,ChorusArt Cover Silk,White,80,266,6,0.0085,24,36,10259,Spicers US,1110371,2,1,4510.02,,4000,Updated_Prices_6_21_RF,193.758656,188.1152
+1110372,ChorusArt Cover Silk,ChorusArt Cover Silk,White,80,298,6,0.0085,25.5,38,10259,Spicers US,1110372,2,1,4510.02,,4000,Updated_Prices_6_21_RF,217.067968,210.7456
+1110373,ChorusArt Cover Silk,ChorusArt Cover Silk,White,100,268,6,0.0106,24,29,10259,Spicers US,1110373,2,1,4510.02,,3500,Updated_Prices_6_21_RF,195.215488,189.5296
+1110374,ChorusArt Cover Silk,ChorusArt Cover Silk,White,100,315,6,0.0106,23.5,35,10259,Spicers US,1110374,2,1,4510.02,,3500,Updated_Prices_6_21_RF,229.45104,222.768
+1110375,ChorusArt Cover Silk,ChorusArt Cover Silk,White,100,332,6,0.0106,24,36,10259,Spicers US,1110375,2,1,4510.02,,3500,Updated_Prices_6_21_RF,241.834112,234.7904
+1110376,ChorusArt Cover Silk,ChorusArt Cover Silk,White,100,373,6,0.0106,25.5,38,10259,Spicers US,1110376,2,1,4510.02,,3500,Updated_Prices_6_21_RF,271.699168,263.7856
+1110377,ChorusArt Cover Silk,ChorusArt Cover Silk,White,130,411,6,0.0138,23.5,35,10259,Spicers US,1110377,2,1,4510.02,,2500,Updated_Prices_6_21_RF,299.378976,290.6592
+1110401,ChorusArt Cover Silk,ChorusArt Cover Silk,White,63,115,6,0.0061,19,25,10259,Spicers US,1110401,2,1,4510.02,,11000,Updated_Prices_6_21_RF,83.76784,81.328
+1110402,ChorusArt Cover Silk,ChorusArt Cover Silk,White,63,169,6,0.0061,24,29,10259,Spicers US,1110402,2,1,4510.02,,5500,Updated_Prices_6_21_RF,123.102304,119.5168
+1110403,ChorusArt Cover Silk,ChorusArt Cover Silk,White,63,199,6,0.0061,23.5,35,10259,Spicers US,1110403,2,1,4510.02,,5500,Updated_Prices_6_21_RF,144.954784,140.7328
+1110404,ChorusArt Cover Silk,ChorusArt Cover Silk,White,63,235,6,0.0061,25.5,38,10259,Spicers US,1110404,2,1,4510.02,,5500,Updated_Prices_6_21_RF,171.17776,166.192
+1110405,ChorusArt Cover Silk,ChorusArt Cover Silk,White,63,271,6,0.0061,28,40,10259,Spicers US,1110405,2,1,4510.02,,5500,Updated_Prices_6_21_RF,197.400736,191.6512
+1110424,ChorusArt Cover Silk,ChorusArt Cover Silk,White,63,126,6,0.0061,20,26,10259,Spicers US,1110424,2,1,4510.02,,11000,Updated_Prices_6_21_RF,91.780416,89.1072
+1110425,ChorusArt Cover Silk,ChorusArt Cover Silk,White,63,252,6,0.0061,26,40,10259,Spicers US,1110425,2,1,4510.02,,5500,Updated_Prices_6_21_RF,183.560832,178.2144
+1110459,ChorusArt Cover Silk,ChorusArt Cover Silk,White,63,252,6,0.0061,26,40,10259,Spicers US,1110459,2,1,4510.02,125,,Updated_Prices_6_21_RF,183.560832,178.2144
+1110384,ChorusArt Digital Cover Gloss,ChorusArt Digital Cover Gloss,White,80,66.46,6,0.0076,18,12,10259,Spicers US,1110384,2,1,4510.02,300,,Updated_Prices_6_21_RF,65.49659584,63.588928
+1110385,ChorusArt Digital Cover Gloss,ChorusArt Digital Cover Gloss,White,80,76,6,0.0076,19,13,10259,Spicers US,1110385,2,1,4510.02,300,,Updated_Prices_6_21_RF,74.898304,72.7168
+1110386,ChorusArt Digital Cover Gloss,ChorusArt Digital Cover Gloss,White,100,83.08,6,0.0099,18,12,10259,Spicers US,1110386,2,1,4510.02,250,,Updated_Prices_6_21_RF,81.87567232,79.490944
+1110387,ChorusArt Digital Cover Gloss,ChorusArt Digital Cover Gloss,White,100,95,6,0.0099,19,13,10259,Spicers US,1110387,2,1,4510.02,250,,Updated_Prices_6_21_RF,93.62288,90.896
+1110392,ChorusArt Digital Cover Silk,ChorusArt Digital Cover Silk,White,80,76,6,0.0085,19,13,10259,Spicers US,1110392,2,1,4510.02,300,,Updated_Prices_6_21_RF,74.898304,72.7168
+1110393,ChorusArt Digital Cover Silk,ChorusArt Digital Cover Silk,White,100,83.08,6,0.0106,18,12,10259,Spicers US,1110393,2,1,4510.02,250,,Updated_Prices_6_21_RF,81.87567232,79.490944
+1110382,ChorusArt Digital Text Gloss,ChorusArt Digital Text Gloss,White,100,45.47,4,0.0047,12,18,10259,Spicers US,1110382,2,1,4510.02,500,,Updated_Prices_6_21_RF,43.8367176,42.55992
+1110383,ChorusArt Digital Text Gloss,ChorusArt Digital Text Gloss,White,100,52,4,0.0047,13,19,10259,Spicers US,1110383,2,1,4510.02,500,,Updated_Prices_6_21_RF,50.13216,48.672
+1110390,ChorusArt Digital Text Silk,ChorusArt Digital Text Silk,White,80,31.5,4,0.004,11,17,10259,Spicers US,1110390,2,1,4510.02,600,,Updated_Prices_6_21_RF,48.032608,46.6336
+1110412,ChorusArt Digital Text Silk,ChorusArt Digital Text Silk,White,80,36.38,4,0.004,12,18,10259,Spicers US,1110412,2,1,4510.02,1200,,Updated_Prices_6_21_RF,35.0732304,34.05168
+1110415,ChorusArt Digital Text Silk,ChorusArt Digital Text Silk,White,100,52,4,0.0051,13,19,10259,Spicers US,1110415,2,1,4510.02,1000,,Updated_Prices_6_21_RF,50.13216,48.672
+1110302,ChorusArt Text Gloss,ChorusArt Text Gloss,White,70,70,4,0.0032,19,25,10259,Spicers US,1110302,2,1,4510.02,,22000,Updated_Prices_6_21_RF,49.48944,48.048
+1110303,ChorusArt Text Gloss,ChorusArt Text Gloss,White,70,127,4,0.0032,24,36,10259,Spicers US,1110303,2,1,4510.02,,11000,Updated_Prices_6_21_RF,89.787984,87.1728
+1110304,ChorusArt Text Gloss,ChorusArt Text Gloss,White,70,165,4,0.0032,28,40,10259,Spicers US,1110304,2,1,4510.02,,11000,Updated_Prices_6_21_RF,116.65368,113.256
+1110305,ChorusArt Text Gloss,ChorusArt Text Gloss,White,80,80,4,0.0038,19,25,10259,Spicers US,1110305,2,1,4510.02,,18000,Updated_Prices_6_21_RF,56.55936,54.912
+1110306,ChorusArt Text Gloss,ChorusArt Text Gloss,White,80,146,4,0.0038,24,36,10259,Spicers US,1110306,2,1,4510.02,,9000,Updated_Prices_6_21_RF,103.220832,100.2144
+1110307,ChorusArt Text Gloss,ChorusArt Text Gloss,White,80,189,4,0.0038,28,40,10259,Spicers US,1110307,2,1,4510.02,,9000,Updated_Prices_6_21_RF,133.621488,129.7296
+1110308,ChorusArt Text Gloss,ChorusArt Text Gloss,White,100,100,4,0.0047,19,25,10259,Spicers US,1110308,2,1,4510.02,,15000,Updated_Prices_6_21_RF,70.6992,68.64
+1110309,ChorusArt Text Gloss,ChorusArt Text Gloss,White,100,182,4,0.0047,24,36,10259,Spicers US,1110309,2,1,4510.02,,7500,Updated_Prices_6_21_RF,128.672544,124.9248
+1110310,ChorusArt Text Gloss,ChorusArt Text Gloss,White,100,236,4,0.0047,28,40,10259,Spicers US,1110310,2,1,4510.02,,7500,Updated_Prices_6_21_RF,166.850112,161.9904
+1110331,ChorusArt Text Gloss,ChorusArt Text Gloss,White,60,104,4,0.0028,23.5,35,10259,Spicers US,1110331,2,1,4510.02,,13000,Updated_Prices_6_21_RF,76.869312,74.6304
+1110332,ChorusArt Text Gloss,ChorusArt Text Gloss,White,60,109,4,0.0028,24,36,10259,Spicers US,1110332,2,1,4510.02,,13000,Updated_Prices_6_21_RF,80.564952,78.2184
+1110333,ChorusArt Text Gloss,ChorusArt Text Gloss,White,60,122,4,0.0028,25.5,38,10259,Spicers US,1110333,2,1,4510.02,,13000,Updated_Prices_6_21_RF,90.173616,87.5472
+1110334,ChorusArt Text Gloss,ChorusArt Text Gloss,White,60,141,4,0.0028,28,40,10259,Spicers US,1110334,2,1,4510.02,,13000,Updated_Prices_6_21_RF,104.217048,101.1816
+1110335,ChorusArt Text Gloss,ChorusArt Text Gloss,White,70,103,4,0.0032,24,29,10259,Spicers US,1110335,2,1,4510.02,,11000,Updated_Prices_6_21_RF,72.820176,70.6992
+1110336,ChorusArt Text Gloss,ChorusArt Text Gloss,White,70,121,4,0.0032,23.5,35,10259,Spicers US,1110336,2,1,4510.02,,11000,Updated_Prices_6_21_RF,85.546032,83.0544
+1110337,ChorusArt Text Gloss,ChorusArt Text Gloss,White,70,143,4,0.0032,25.5,38,10259,Spicers US,1110337,2,1,4510.02,,11000,Updated_Prices_6_21_RF,101.099856,98.1552
+1110338,ChorusArt Text Gloss,ChorusArt Text Gloss,White,80,115,4,0.0038,23.5,29,10259,Spicers US,1110338,2,1,4510.02,,9000,Updated_Prices_6_21_RF,81.30408,78.936
+1110339,ChorusArt Text Gloss,ChorusArt Text Gloss,White,80,117,4,0.0038,24,29,10259,Spicers US,1110339,2,1,4510.02,,9000,Updated_Prices_6_21_RF,82.718064,80.3088
+1110340,ChorusArt Text Gloss,ChorusArt Text Gloss,White,80,139,4,0.0038,23.5,35,10259,Spicers US,1110340,2,1,4510.02,,9000,Updated_Prices_6_21_RF,98.271888,95.4096
+1110341,ChorusArt Text Gloss,ChorusArt Text Gloss,White,80,163,4,0.0038,25.5,38,10259,Spicers US,1110341,2,1,4510.02,,9000,Updated_Prices_6_21_RF,115.239696,111.8832
+1110342,ChorusArt Text Gloss,ChorusArt Text Gloss,White,100,147,4,0.0047,24,29,10259,Spicers US,1110342,2,1,4510.02,,7500,Updated_Prices_6_21_RF,103.927824,100.9008
+1110343,ChorusArt Text Gloss,ChorusArt Text Gloss,White,100,173,4,0.0047,23.5,35,10259,Spicers US,1110343,2,1,4510.02,,7500,Updated_Prices_6_21_RF,122.309616,118.7472
+1110344,ChorusArt Text Gloss,ChorusArt Text Gloss,White,100,204,4,0.0047,25.5,38,10259,Spicers US,1110344,2,1,4510.02,,7500,Updated_Prices_6_21_RF,144.226368,140.0256
+1110430,ChorusArt Text Gloss,ChorusArt Text Gloss,White,80,66,4,0.0038,17.5,22.5,10259,Spicers US,1110430,2,1,4510.02,,18000,Updated_Prices_6_21_RF,46.661472,45.3024
+1110431,ChorusArt Text Gloss,ChorusArt Text Gloss,White,70,140,4,0.0032,25,38,10259,Spicers US,1110431,2,1,4510.02,,11000,Updated_Prices_6_21_RF,98.97888,96.096
+1110322,ChorusArt Text Silk,ChorusArt Text Silk,White,70,70,4,0.0036,19,25,10259,Spicers US,1110322,2,1,4510.02,,19000,Updated_Prices_6_21_RF,49.48944,48.048
+1110323,ChorusArt Text Silk,ChorusArt Text Silk,White,70,127,4,0.0036,24,36,10259,Spicers US,1110323,2,1,4510.02,,9500,Updated_Prices_6_21_RF,89.787984,87.1728
+1110324,ChorusArt Text Silk,ChorusArt Text Silk,White,70,165,4,0.0036,28,40,10259,Spicers US,1110324,2,1,4510.02,,9500,Updated_Prices_6_21_RF,116.65368,113.256
+1110325,ChorusArt Text Silk,ChorusArt Text Silk,White,80,80,4,0.004,19,25,10259,Spicers US,1110325,2,1,4510.02,,16000,Updated_Prices_6_21_RF,56.55936,54.912
+1110326,ChorusArt Text Silk,ChorusArt Text Silk,White,80,146,4,0.004,24,36,10259,Spicers US,1110326,2,1,4510.02,,8000,Updated_Prices_6_21_RF,103.220832,100.2144
+1110327,ChorusArt Text Silk,ChorusArt Text Silk,White,80,189,4,0.004,28,40,10259,Spicers US,1110327,2,1,4510.02,,8000,Updated_Prices_6_21_RF,133.621488,129.7296
+1110328,ChorusArt Text Silk,ChorusArt Text Silk,White,100,100,4,0.0051,19,25,10259,Spicers US,1110328,2,1,4510.02,,13000,Updated_Prices_6_21_RF,70.6992,68.64
+1110329,ChorusArt Text Silk,ChorusArt Text Silk,White,100,182,4,0.0051,24,36,10259,Spicers US,1110329,2,1,4510.02,,6500,Updated_Prices_6_21_RF,128.672544,124.9248
+1110330,ChorusArt Text Silk,ChorusArt Text Silk,White,100,236,4,0.0051,28,40,10259,Spicers US,1110330,2,1,4510.02,,6500,Updated_Prices_6_21_RF,166.850112,161.9904
+1110355,ChorusArt Text Silk,ChorusArt Text Silk,White,60,104,4,0.0032,23.5,35,10259,Spicers US,1110355,2,1,4510.02,,11000,Updated_Prices_6_21_RF,76.869312,74.6304
+1110356,ChorusArt Text Silk,ChorusArt Text Silk,White,60,122,4,0.0032,25.5,38,10259,Spicers US,1110356,2,1,4510.02,,11000,Updated_Prices_6_21_RF,90.173616,87.5472
+1110357,ChorusArt Text Silk,ChorusArt Text Silk,White,60,141,4,0.0032,28,40,10259,Spicers US,1110357,2,1,4510.02,,11000,Updated_Prices_6_21_RF,104.217048,101.1816
+1110358,ChorusArt Text Silk,ChorusArt Text Silk,White,70,103,4,0.0036,24,29,10259,Spicers US,1110358,2,1,4510.02,,9500,Updated_Prices_6_21_RF,72.820176,70.6992
+1110359,ChorusArt Text Silk,ChorusArt Text Silk,White,70,121,4,0.0036,23.5,35,10259,Spicers US,1110359,2,1,4510.02,,9500,Updated_Prices_6_21_RF,85.546032,83.0544
+1110360,ChorusArt Text Silk,ChorusArt Text Silk,White,70,143,4,0.0036,25.5,38,10259,Spicers US,1110360,2,1,4510.02,,9500,Updated_Prices_6_21_RF,101.099856,98.1552
+1110361,ChorusArt Text Silk,ChorusArt Text Silk,White,80,115,4,0.004,23.5,29,10259,Spicers US,1110361,2,1,4510.02,,8000,Updated_Prices_6_21_RF,81.30408,78.936
+1110362,ChorusArt Text Silk,ChorusArt Text Silk,White,80,117,4,0.004,24,29,10259,Spicers US,1110362,2,1,4510.02,,8000,Updated_Prices_6_21_RF,82.718064,80.3088
+1110363,ChorusArt Text Silk,ChorusArt Text Silk,White,80,139,4,0.004,23.5,35,10259,Spicers US,1110363,2,1,4510.02,,8000,Updated_Prices_6_21_RF,98.271888,95.4096
+1110364,ChorusArt Text Silk,ChorusArt Text Silk,White,80,163,4,0.004,25.5,38,10259,Spicers US,1110364,2,1,4510.02,,8000,Updated_Prices_6_21_RF,115.239696,111.8832
+1110365,ChorusArt Text Silk,ChorusArt Text Silk,White,100,147,4,0.0051,24,29,10259,Spicers US,1110365,2,1,4510.02,,6500,Updated_Prices_6_21_RF,103.927824,100.9008
+1110367,ChorusArt Text Silk,ChorusArt Text Silk,White,100,173,4,0.0051,23.5,35,10259,Spicers US,1110367,2,1,4510.02,,6500,Updated_Prices_6_21_RF,122.309616,118.7472
+1110368,ChorusArt Text Silk,ChorusArt Text Silk,White,100,204,4,0.0051,25.5,38,10259,Spicers US,1110368,2,1,4510.02,,6500,Updated_Prices_6_21_RF,144.226368,140.0256

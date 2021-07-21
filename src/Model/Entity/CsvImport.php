@@ -4,13 +4,15 @@
 namespace App\Model\Entity;
 
 
-class CsvImport extends \Cake\ORM\Entity
-{
-    protected $_virtual = ['id'];
+use Cake\ORM\Entity;
 
-    public function _getId()
-    {
-        return $this->stock_number;
-    }
+class CsvImport extends Entity
+{
+//    protected $_virtual = ['id'];
+//
+//    public function _getId()
+//    {
+//        return $this->material_code;
+//    }
 
 }
