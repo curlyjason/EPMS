@@ -14,7 +14,17 @@
  * @var \App\View\AppView $this
  */
 
+use Cake\Core\Configure;
+
 $cakeDescription = 'CakePHP: the rapid development php framework';
+
+$jQuery_path = Configure::read('debug')
+    ? 'https://code.jquery.com/jquery-3.6.0.js'
+    : 'https://code.jquery.com/jquery-3.6.0.min.js';
+
+$this->start('script');
+echo $this->Html->script('epms');
+$this->end();
 ?>
 <!DOCTYPE html>
 <html>
@@ -29,11 +39,12 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
 
-    <?= $this->Html->css(['normalize.min', 'milligram.min', 'cake']) ?>
+    <?= $this->Html->css(['normalize.min', 'milligram.min', 'cake', 'epms']) ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
-    <?= $this->fetch('script') ?>
+    <?= $this->Html->script($jQuery_path); ?>
+
 </head>
 <body>
     <nav class="top-nav">
@@ -55,3 +66,4 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </footer>
 </body>
 </html>
+<?= $this->fetch('script') ?>
