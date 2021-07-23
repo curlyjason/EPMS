@@ -87,6 +87,7 @@ class CsvImportsController extends AppController
     public function map()
     {
         $target_table = Cache::read('target_table');
+        $action = Cache::read("$this->uid.action");
         $this->$target_table = $this->getTableLocator()->get($target_table);
         $this->ImportedData = $this->CsvImports->import($this->getFileName());
         $target_columns = $this->$target_table->getSchema()->columns();
@@ -95,10 +96,11 @@ class CsvImportsController extends AppController
 
         if($this->getRequest()->is('post') && $this->validMap()){
             Cache::write('map', $this->getRequest()->getData());
-            return $this->redirect(['action' => 'processMap']);
+            $process = $action === 'add' ? 'processAddMap' : 'processMap';
+            return $this->redirect(['action' => $process]);
         }
 
-        $this->set(compact('target_columns', 'source_columns', 'target_table'));
+        $this->set(compact('target_columns', 'source_columns', 'target_table', 'action'));
     }
 
     public function validMap(): bool
