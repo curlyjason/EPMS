@@ -160,7 +160,9 @@ class CsvImportsController extends AppController
             $result = $this->$target_table->saveMany($entities_to_save);
         }
 
-        $this->set(compact('map', 'key', 'target_records', 'imp_layer', 'reduced_map', 'primary_key'));
+        $this->set(compact( 'key', 'target_records', 'imp_layer', 'reduced_map', 'primary_key', 'action'));
+    }
+
     public function processAddMap()
     {
         $target_table = Cache::read('target_table');
