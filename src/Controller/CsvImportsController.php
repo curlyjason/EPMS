@@ -161,6 +161,34 @@ class CsvImportsController extends AppController
         }
 
         $this->set(compact('map', 'key', 'target_records', 'imp_layer', 'reduced_map', 'primary_key'));
+    public function processAddMap()
+    {
+        $target_table = Cache::read('target_table');
+        $this->$target_table = $this->getTableLocator()->get($target_table);
+        $primary_key = $this->primaryKey = $this->$target_table->getPrimaryKey();
+        $map = Cache::read('map');
+        $key = Cache::read('key');
+        $action = Cache::read("$this->uid.action");
+        $reduced_map = $this->reduceMap($map, $key);
+        $import = $this->CsvImports->import($this->getFileName());
+
+        if ($this->getRequest()->is('post')){
+            $patch = $this->setupAddPatch($import, $reduced_map);
+            $entities = $this->$target_table->newEntities($patch);
+            $error = false;
+            foreach ($entities as $entity) {
+                if($entity->hasErrors()){
+                    $error = true;
+                    $this->Flash->error(var_export($entity->getErrors(), true) . " - Revise table setup. Add to fixPatchData implementation");
+                }
+            }
+            if(!$error){
+                $this->$target_table->saveMany($entities);
+            }
+        }
+
+        $this->set(compact( 'key', 'import', 'reduced_map', 'primary_key', 'action'));
+
     }
 
     private function setupPatch(array $target_records, Layer $imp_layer, $reduced_map)
@@ -232,6 +260,22 @@ class CsvImportsController extends AppController
     private function getFileName(): string
     {
         return "$this->uid-workingFile.csv";
+    }
+
+    private function setupAddPatch(array $import, $reduced_map)
+    {
+        return collection($import)
+            ->reduce(function($accum, $record, $key) use ($reduced_map){
+                $accum[$key] = collection($reduced_map)
+                    ->reduce(function($element, $target_key, $source_key) use ($record){
+                        $element[$target_key] = $record->$source_key;
+                        return $element;
+                    }, []);
+                $accum[$key][$this->primaryKey] = $record->id;
+                $target_table = Cache::read('target_table');
+                $accum[$key] = $this->$target_table->fixPatchData($accum[$key]);
+                return $accum;
+            }, []);
     }
 
 
