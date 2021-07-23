@@ -25,7 +25,7 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\Material[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
  * @method \App\Model\Entity\Material[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
  */
-class MaterialsTable extends Table
+class MaterialsTable extends AppTable
 {
     /**
      * Initialize method
@@ -537,4 +537,15 @@ class MaterialsTable extends Table
 
         return $validator;
     }
+
+    public function fixPatchData(array $data)
+    {
+        $data['NonStock'] = $data['NonStock'] ?? false;
+        $data['PreCollated'] = $data['PreCollated'] ?? false;
+        $data['EnterDimensions'] = $data['EnterDimensions'] ?? false;
+        $data['SeparateMarkup'] = $data['SeparateMarkup'] ?? false;
+        return $data;
+    }
+
+
 }
