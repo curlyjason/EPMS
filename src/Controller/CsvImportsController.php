@@ -143,14 +143,12 @@ class CsvImportsController extends AppController
         $key = Cache::read('key');
         $reduced_map = $this->reduceMap($map, $key);
         $import = $this->CsvImports->import($this->getFileName());
-        debug($import);
         $imp_layer = new Layer($import, 'CsvImport');
         $find_array = collection($import)
             ->reduce(function($accum, $record) use ($key){
                 $accum[] = $record->$key;
                 return $accum;
             }, []);
-        debug($imp_layer);die;
         $target_records = $this->$target_table->find('all')
             ->where(["$primary_key IN" => $find_array])
             ->toArray();

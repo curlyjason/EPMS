@@ -12,7 +12,7 @@ class CsvImport extends Entity
 //
 //    public function _getId()
 //    {
-//        return $this->material_code;
+//        return $this->materialcode;
 //    }
 
 }
