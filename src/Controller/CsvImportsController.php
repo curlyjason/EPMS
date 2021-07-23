@@ -48,7 +48,7 @@ class CsvImportsController extends AppController
 
     public function add()
     {
-        $this->Session->write('action', 'add');
+        Cache::write("$this->uid.action", 'add');
         $table = $this->CsvImports;
         $targets = $this->ormTables();
 
@@ -67,7 +67,7 @@ class CsvImportsController extends AppController
 
     public function edit()
     {
-        Cache::write('action', 'edit');
+        Cache::write("$this->uid.action", 'edit');
         $table = $this->CsvImports;
         $targets = $this->ormTables();
 
@@ -141,6 +141,7 @@ class CsvImportsController extends AppController
         $primary_key = $this->primaryKey = $this->$target_table->getPrimaryKey();
         $map = Cache::read('map');
         $key = Cache::read('key');
+        $action = Cache::read("$this->uid.action");
         $reduced_map = $this->reduceMap($map, $key);
         $import = $this->CsvImports->import($this->getFileName());
         $imp_layer = new Layer($import, 'CsvImport');
