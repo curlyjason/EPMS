@@ -10,6 +10,11 @@ use Cake\Utility\Inflector;
  * @var string $target_table
  */
 
+$this->append('script');
+echo $this->Html->script('selectorama');
+$this->end();
+
+
 $key_array = collection($target_columns)
     ->reduce(function($accum, $target_column){
         $accum[strtolower($target_column)] = $target_column;
@@ -43,3 +48,4 @@ foreach ($source_columns as $source_column) {
 }
 echo $this->Form->submit();
 echo $this->Form->end();
+echo $this->Html->script('selectorama');

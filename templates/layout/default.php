@@ -24,6 +24,7 @@ $jQuery_path = Configure::read('debug')
 
 $this->start('script');
 echo $this->Html->script('epms');
+echo $this->Html->script('selectorama');
 $this->end();
 ?>
 <!DOCTYPE html>

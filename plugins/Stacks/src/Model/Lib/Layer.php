@@ -1,6 +1,7 @@
 <?php
 namespace Stacks\Model\Lib;
 
+use Cake\ORM\Entity;
 use Cake\Utility\Inflector;
 use Stacks\Interfaces\LayerAccessInterface;
 use Stacks\Interfaces\LayerStructureInterface;
@@ -292,6 +293,13 @@ class Layer implements LayerStructureInterface, LayerAccessInterface, \Countable
      */
     private function _initEntitySet($entities) {
         foreach ($entities as $key => $entity) {
+            /**
+             * @var Entity $entity
+             */
+            debug($entity);
+            $entity->setNew(false);
+            debug($entity);
+            debug($entity->id);die;
             if (!strpos(get_class($entity), $this->_className)) {
                 $badClass = get_class($entity);
                 $message = "All entities stored in a StackLayer must be of "
