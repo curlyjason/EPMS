@@ -14,11 +14,13 @@ use Stacks\Model\Lib\Layer;
  * @var array $reduced_map
  * @var Layer $imp_layer
  * @var string $primary_key
+ * @var string $action
  */
 
 
 
 ?>
+<h1><?= $action ?></h1>
 <table>
     <tbody>
     <tr>

@@ -8,6 +8,7 @@ use Cake\Utility\Inflector;
  * @var array $target_columns
  * @var array $source_columns
  * @var string $target_table
+ * @var string $action
  */
 
 $this->append('script');
@@ -32,7 +33,7 @@ $autoMatch = function ($source_column) use ($key_array){
     }
 };
 
-echo $this->Html->tag('h2', "Importing to $target_table");
+echo $this->Html->tag('h2', "$action $target_table");
 echo $this->Form->create();
 foreach ($source_columns as $source_column) {
     echo $this->Form->control(
