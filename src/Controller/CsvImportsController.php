@@ -59,7 +59,7 @@ class CsvImportsController extends AppController
             $file = $this->getRequest()->getData('file');
             Cache::write('target_table', $this->getRequest()->getData('target'));
             $file->moveTo($this->getFilePath());
-            return $this->redirect(['action' => 'map']);
+            return $this->redirect(['action' => '_map']);
         }
 
         $this->set(compact('table', 'targets'));
@@ -78,13 +78,13 @@ class CsvImportsController extends AppController
             $file = $this->getRequest()->getData('file');
             Cache::write('target_table', $this->getRequest()->getData('target'));
             $file->moveTo($this->getFilePath());
-            return $this->redirect(['action' => 'map']);
+            return $this->redirect(['action' => '_map']);
         }
 
         $this->set(compact('table', 'targets'));
     }
 
-    public function map()
+    public function _map()
     {
         $target_table = Cache::read('target_table');
         $this->$target_table = $this->getTableLocator()->get($target_table);
@@ -93,7 +93,7 @@ class CsvImportsController extends AppController
         $target_columns = array_combine($target_columns, $target_columns);
         $source_columns = $this->CsvImports->getSchema()->columns();
 
-        if($this->getRequest()->is('post') && $this->validMap()){
+        if($this->getRequest()->is('post') && $this->_validMap()){
             Cache::write('map', $this->getRequest()->getData());
             return $this->redirect(['action' => 'processMap']);
         }
@@ -101,7 +101,7 @@ class CsvImportsController extends AppController
         $this->set(compact('target_columns', 'source_columns', 'target_table'));
     }
 
-    public function validMap(): bool
+    public function _validMap(): bool
     {
         $map = $this->getRequest()->getData();
         $assigned_targets = [];
@@ -134,7 +134,7 @@ class CsvImportsController extends AppController
         return $return;
     }
 
-    public function processMap()
+    public function _processMap()
     {
         $target_table = Cache::read('target_table');
         $this->$target_table = $this->getTableLocator()->get($target_table);
@@ -195,7 +195,7 @@ class CsvImportsController extends AppController
      *
      * @return mixed|null
      */
-    public function ormTables() {
+    private function ormTables() {
         $tableDir = new Folder(APP.'Model'.DS.'Table');
         $allFiles = ($tableDir->find('.*Table.php'));
         $files = collection($allFiles)

@@ -36,9 +36,7 @@ class Introspection
      * @return mixed|null
      */
     static public function ormTables() {
-        $tableDir = new Folder(APP.'Model'.DS.'Table');
-        $allFiles = ($tableDir->find('(.*)Table.php'));
-        $files = collection($allFiles)
+        $files = collection(self::getAllTables())
             ->reduce(function($accum, $file) {
                 if (!preg_match('/Stack/', $file)) {
                     $accum[] = str_replace('Table.php', '', $file);
@@ -54,9 +52,7 @@ class Introspection
      * @return mixed|null
      */
     static public function indexViews() {
-        $controllerDir = new Folder(APP.'Controller');
-        $allFiles = ($controllerDir->find('(.*)Controller.php'));
-        $files = collection($allFiles)
+        $files = collection(self::getAllControllers())
             ->reduce(function($accum, $file) {
                 $methods = get_class_methods('\App\Controller\\' . str_replace('.php', '', $file));
                 if (in_array('index', $methods)) {
@@ -67,4 +63,50 @@ class Introspection
         return $files;
     }
 
+    /**
+     * Get all fully-qualified controller class names
+     *
+     * @return mixed|null
+     */
+    static public function controllerClasses() {
+        $controllers = collection(self::getAllControllers())
+            ->map(function($file) {
+                return preg_replace(
+                    '/(.*).php/', '\App\Controller\\\\$1', $file);
+            })
+            ->toArray();
+        return $controllers;
+    }
+
+    /**
+     * Get all controller file names
+     *
+     * @return array
+     */
+    private static function getAllControllers(): array
+    {
+        $controllerDir = new Folder(APP . 'Controller');
+        $allFiles = ($controllerDir->find('(.*)Controller.php'));
+        return $allFiles;
+    }
+
+    /**
+     * @return array
+     */
+    private static function getAllTables(): array
+    {
+        $tableDir = new Folder(APP . 'Model' . DS . 'Table');
+        $allFiles = ($tableDir->find('(.*)Table.php'));
+        return $allFiles;
+    }
+
+    public static function getEndpoints($controller) {
+        $inherited = get_class_methods('\App\Controller\AppController');
+        $target = get_class_methods('\App\Controller\\' . $controller . 'Controller');
+        return collection(array_diff($target, $inherited))
+            ->filter(function($method){
+                return $method[0] !== '_';
+            });
+
+    }
 }
