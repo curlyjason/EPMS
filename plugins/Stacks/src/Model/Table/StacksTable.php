@@ -903,7 +903,7 @@ class StacksTable extends Table
     }
 
     /**
-     * Set the layer -> base table _map
+     * Set the layer -> base table map
      * @param array $map
      */
     public function setMap(array $map)
@@ -912,13 +912,13 @@ class StacksTable extends Table
     }
 
     /**
-     * Create a portion of the layer _map
+     * Create a portion of the layer map
      *
-     * Using the _map property in this concrete instantiation
-     * of the StacksTable, create a portion of the _map of concrete
+     * Using the map property in this concrete instantiation
+     * of the StacksTable, create a portion of the map of concrete
      * table entities to layer names in all stack tables
      *
-     *         $_map = [
+     *         $map = [
      *          'concreteTableName' => [
      *              'stackTableName' => [
      *                  'layerName',

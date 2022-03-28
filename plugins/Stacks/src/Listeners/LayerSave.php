@@ -62,10 +62,10 @@ use Cake\Utility\Inflector;
  *
  * That's exactly what this listener accomplishes.
  *
- * It insures the existence this master _map, then based on an
+ * It insures the existence this master map, then based on an
  * entity that has change, it determines the table underlying the
  * entity and uses that information to determine which stacks contain
- * layers that derive from that table. That's where the _map comes in!
+ * layers that derive from that table. That's where the map comes in!
  *
  * Once the list of potential intersections are found, the process shifts
  * to checking each stack to see if the change entity specifically is, was,
