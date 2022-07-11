@@ -8,5 +8,4 @@ use \App\View\AppView;
  */
 
 echo $this->element('nav/index_link_ul');
-
-
+echo $this->element('nav/csv_import_methods', ['controller' => 'CsvImports']);
