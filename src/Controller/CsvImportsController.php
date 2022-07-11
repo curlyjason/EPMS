@@ -197,17 +197,29 @@ class CsvImportsController extends AppController
 
 
         if ($this->getRequest()->is('post')){
-            $patch = $this->convertImportToPatchData($import, $reduced_map);
-            $entities = $this->$target_table->newEntities($patch);
-            $error = false;
-            foreach ($entities as $entity) {
-                if($entity->hasErrors()){
-                    $error = true;
-                    $this->Flash->error(var_export($entity->getErrors(), true) . " - Revise table setup. Add to fixPatchData implementation");
-                }
+//            $patch = $this->convertImportToPatchData($import, $reduced_map);
+//            $entities = $this->$target_table->newEntities($patch);
+//            $error = false;
+//            foreach ($entities as $entity) {
+//                if($entity->hasErrors()){
+//                    $error = true;
+//                    $this->Flash->error(var_export($entity->getErrors(), true) . " - Revise table setup. Add to fixPatchData implementation");
+//                }
+//            }
+//            if(!$error){
+                $result = $this->$target_table->saveMany($records);
+//            }
+            if($result){
+                $this->Flash->success("All records updated!");
+                $this->redirect('pages/home');
             }
-            if(!$error){
-                $this->$target_table->saveMany($entities);
+            else {
+                $this->Flash->error("Problem saving records.");
+                foreach ($records as $entity) {
+                    if($entity->hasErrors()){
+                        var_export($entity->getErrors());
+                    }
+                }
             }
         }
 
