@@ -10,6 +10,7 @@ use Cake\Cache\Cache;
 use Cake\Filesystem\Folder;
 use Cake\Http\Session;
 use Cake\ORM\Entity;
+use Cake\Utility\Inflector;
 use Laminas\Diactoros\UploadedFile;
 use Stacks\Constants\LayerCon;
 use Stacks\Model\Lib\Layer;
@@ -174,6 +175,7 @@ class CsvImportsController extends AppController
         $key = $this->Session->read('key');
         $action = $this->Session->read("$this->uid.action");
         $reduced_map = $this->reduceMap($map, $key);
+        $manual_map = $this->filterManualEntriesInReducedMap($reduced_map);
         $import = $this->CsvImports->import($this->getFileName());
 
         if ($this->getRequest()->is('post')){
@@ -191,7 +193,7 @@ class CsvImportsController extends AppController
             }
         }
 
-        $this->set(compact( 'key', 'import', 'reduced_map', 'primary_key', 'action'));
+        $this->set(compact( 'key', 'import', 'reduced_map', 'primary_key', 'action', 'manual_map'));
 
     }
 
@@ -280,6 +282,14 @@ class CsvImportsController extends AppController
                 $accum[$key] = $this->$target_table->fixPatchData($accum[$key]);
                 return $accum;
             }, []);
+    }
+
+    private function filterManualEntriesInReducedMap($reduced_map)
+    {
+        return collection($reduced_map)
+            ->filter(function($target_column, $source_column){
+                return strtolower(Inflector::camelize($target_column)) != strtolower(Inflector::camelize($source_column));
+            })->toArray();
     }
 
 

@@ -12,11 +12,20 @@ use Stacks\Model\Lib\Layer;
  * @var Entity[] $target_records
  * @var array $map
  * @var array $reduced_map
+ * @var array $manual_map
  * @var Layer $imp_layer
  * @var string $primary_key
  * @var string $action
  */
 
+$columnHeader = function($target_key, $source_key) use ($manual_map){
+    if(in_array($target_key, $manual_map)){
+        return "<th style='color: red'> $target_key</br>$source_key </th>";
+    }
+    else {
+        return "<th> $target_key </th>";
+    }
+}
 ?>
 <h1><?= $action ?></h1>
 <table>
@@ -24,7 +33,7 @@ use Stacks\Model\Lib\Layer;
     <tr>
         <th><?=$primary_key?></th>
         <?php foreach ($reduced_map as $source_key => $target_key): ?>
-        <th><?= $target_key ?></th>
+        <?= $columnHeader($target_key, $source_key) ?>
         <?php endforeach; ?>
     </tr>
     <?php
