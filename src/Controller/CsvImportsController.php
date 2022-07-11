@@ -58,7 +58,7 @@ class CsvImportsController extends AppController
              * @var UploadedFile $file
              */
             $file = $this->getRequest()->getData('file');
-            Cache::write('target_table', $this->getRequest()->getData('target'));
+            $this->Session->write('target_table', $this->getRequest()->getData('target'));
             $file->moveTo($this->getFilePath());
             return $this->redirect(['action' => 'map']);
         }
@@ -68,7 +68,7 @@ class CsvImportsController extends AppController
 
     public function edit()
     {
-        Cache::write('action', 'edit');
+        $this->Session->write('action', 'edit');
         $table = $this->CsvImports;
         $targets = $this->ormTables();
 
@@ -77,7 +77,7 @@ class CsvImportsController extends AppController
              * @var UploadedFile $file
              */
             $file = $this->getRequest()->getData('file');
-            Cache::write('target_table', $this->getRequest()->getData('target'));
+            $this->Session->write('target_table', $this->getRequest()->getData('target'));
             $file->moveTo($this->getFilePath());
             return $this->redirect(['action' => 'map']);
         }
@@ -87,7 +87,7 @@ class CsvImportsController extends AppController
 
     public function map()
     {
-        $target_table = Cache::read('target_table');
+        $target_table = $this->Session->read('target_table');
         $this->$target_table = $this->getTableLocator()->get($target_table);
         $this->ImportedData = $this->CsvImports->import($this->getFileName());
         $target_columns = $this->$target_table->getSchema()->columns();
@@ -95,7 +95,7 @@ class CsvImportsController extends AppController
         $source_columns = $this->CsvImports->getSchema()->columns();
 
         if($this->getRequest()->is('post') && $this->validMap()){
-            Cache::write('map', $this->getRequest()->getData());
+            $this->Session->write('map', $this->getRequest()->getData());
             return $this->redirect(['action' => 'processMap']);
         }
 
@@ -119,7 +119,7 @@ class CsvImportsController extends AppController
                     }
                 }
                 if ($target == 'MaterialCode') {
-                    Cache::write('key', $source);
+                    $this->Session->write('key', $source);
                     $accum['MaterialCode'] = true;
                 }
                 return $accum;
@@ -137,11 +137,11 @@ class CsvImportsController extends AppController
 
     public function processMap()
     {
-        $target_table = Cache::read('target_table');
+        $target_table = $this->Session->read('target_table');
         $this->$target_table = $this->getTableLocator()->get($target_table);
         $primary_key = $this->primaryKey = $this->$target_table->getPrimaryKey();
-        $map = Cache::read('map');
-        $key = Cache::read('key');
+        $map = $this->Session->read('map');
+        $key = $this->Session->read('key');
         $reduced_map = $this->reduceMap($map, $key);
         $import = $this->CsvImports->import($this->getFileName());
         debug($import);
