@@ -158,7 +158,7 @@ class CsvImportsController extends AppController
             ->toArray();
 
         if ($this->getRequest()->is('post')){
-            $patch = $this->setupPatch($target_records, $imp_layer, $reduced_map);
+            $patch = $this->buildPatchData($target_records, $imp_layer, $reduced_map);
             $entities_to_save = $this->$target_table->patchEntities($target_records, $patch);
             $result = $this->$target_table->saveMany($entities_to_save);
         }
@@ -178,8 +178,26 @@ class CsvImportsController extends AppController
         $manual_map = $this->filterManualEntriesInReducedMap($reduced_map);
         $import = $this->CsvImports->import($this->getFileName());
 
+        //Find existing records
+        $imp_layer = new Layer($import, 'CsvImport');
+        $find_array = collection($import)
+            ->reduce(function($accum, $record) use ($key){
+                $accum[] = $record->$key;
+                return $accum;
+            }, []);
+        $existing_records = $this->$target_table->find('all')
+            ->where(["$primary_key IN" => $find_array])
+            ->toArray();
+
+        //Setup patch data
+        $patch = $this->convertImportToPatchData($import, $reduced_map);
+
+        //Build entities to review
+        $records = $this->$target_table->patchEntities($existing_records, $patch);
+
+
         if ($this->getRequest()->is('post')){
-            $patch = $this->setupAddPatch($import, $reduced_map);
+            $patch = $this->convertImportToPatchData($import, $reduced_map);
             $entities = $this->$target_table->newEntities($patch);
             $error = false;
             foreach ($entities as $entity) {
@@ -193,11 +211,11 @@ class CsvImportsController extends AppController
             }
         }
 
-        $this->set(compact( 'key', 'import', 'reduced_map', 'primary_key', 'action', 'manual_map'));
+        $this->set(compact( 'key', 'reduced_map', 'primary_key', 'action', 'manual_map', 'records'));
 
     }
 
-    private function setupPatch(array $target_records, Layer $imp_layer, $reduced_map)
+    private function buildPatchData(array $target_records, Layer $imp_layer, $reduced_map)
     {
         return collection($target_records)
             ->reduce(function($accum, $target_record) use ($imp_layer, $reduced_map){
@@ -268,7 +286,7 @@ class CsvImportsController extends AppController
         return "$this->uid-workingFile.csv";
     }
 
-    private function setupAddPatch(array $import, $reduced_map)
+    private function convertImportToPatchData(array $import, $reduced_map)
     {
         return collection($import)
             ->reduce(function($accum, $record, $key) use ($reduced_map){

@@ -8,7 +8,7 @@ use Stacks\Model\Lib\Layer;
 
 /**
  * @var AppView $this
- * @var Entity[] $import
+ * @var Entity[] $records
  * @var Entity[] $target_records
  * @var array $map
  * @var array $reduced_map
@@ -20,12 +20,24 @@ use Stacks\Model\Lib\Layer;
 
 $columnHeader = function($target_key, $source_key) use ($manual_map){
     if(in_array($target_key, $manual_map)){
-        return "<th style='color: red'> $target_key</br>$source_key </th>";
+        $value = "<span style='color:green;'>$target_key</span>" .
+            "</br>" .
+            "<span style='color:red;'>$source_key</span>";
+
     }
     else {
-        return "<th> $target_key </th>";
+        $value = $target_key;
     }
+    return $value;
+};
+
+/**
+ * @param $record Entity
+ */
+$trElementPicker = function($record){
+    return $record->isNew() ? 'CsvImports/new_record' : 'CsvImports/existing_record';
 }
+
 ?>
 <h1><?= $action ?></h1>
 <table>
@@ -33,17 +45,12 @@ $columnHeader = function($target_key, $source_key) use ($manual_map){
     <tr>
         <th><?=$primary_key?></th>
         <?php foreach ($reduced_map as $source_key => $target_key): ?>
-        <?= $columnHeader($target_key, $source_key) ?>
+            <th><?= $columnHeader($target_key, $source_key) ?></th>
         <?php endforeach; ?>
     </tr>
     <?php
-    foreach ($import as $record) {
-        echo '<tr>';
-        echo $this->Html->tag('td', $record->id);
-        foreach ($reduced_map as $source_key => $target_key) {
-            echo $this->Html->tag('td', $record->$source_key);
-        }
-        echo '</tr>';
+    foreach ($records as $record) {
+        echo $this->element($trElementPicker($record), ['record' => $record]);
     }
     ?>
     </tbody>
