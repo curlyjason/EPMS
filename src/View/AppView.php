@@ -15,6 +15,7 @@ declare(strict_types=1);
  */
 namespace App\View;
 
+use App\View\Helper\NavigationHelper;
 use Cake\View\View;
 
 /**
@@ -27,6 +28,11 @@ use Cake\View\View;
 class AppView extends View
 {
     /**
+     * @var NavigationHelper mixed
+     */
+    public $Navigation;
+
+    /**
      * Initialization hook method.
      *
      * Use this method to add common initialization code like loading helpers.
@@ -37,5 +43,9 @@ class AppView extends View
      */
     public function initialize(): void
     {
+        $this->loadHelper('Navigation');
+        $this->loadHelper('Html');
+        $this->loadHelper('Form');
+        $this->loadHelper('Flash');
     }
 }

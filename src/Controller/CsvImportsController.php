@@ -59,13 +59,13 @@ class CsvImportsController extends AppController
             $file = $this->getRequest()->getData('file');
             $this->Session->write('target_table', $this->getRequest()->getData('target'));
             $file->moveTo($this->getFilePath());
-            return $this->redirect(['action' => 'map']);
+            return $this->redirect(['action' => '_map']);
         }
 
         $this->set(compact('table', 'targets'));
     }
 
-    public function map()
+    public function _map()
     {
         $target_table = $this->Session->read('target_table');
         $this->$target_table = $this->getTableLocator()->get($target_table);
@@ -76,46 +76,13 @@ class CsvImportsController extends AppController
 
         if($this->getRequest()->is('post') && $this->validMap()){
             $this->Session->write('map', $this->getRequest()->getData());
-            return $this->redirect(['action' => 'processAddMap']);
+            return $this->redirect(['action' => '_processAddMap']);
         }
 
         $this->set(compact('target_columns', 'source_columns', 'target_table'));
     }
 
-    public function validMap(): bool
-    {
-        $map = $this->getRequest()->getData();
-        $assigned_targets = [];
-        $return = true;
-        $result = collection($map)
-            ->reduce(function($accum, $target, $source) use (&$assigned_targets){
-                if (!empty($target)) {
-                    if (!array_key_exists($target, $assigned_targets)) {
-                        $assigned_targets[$target] = $target;
-                    }
-                    else {
-                        $this->Flash->error("You cannot assign $target to two sources");
-                        $accum['duplicates'] = true;
-                    }
-                }
-                if ($target == 'MaterialCode') {
-                    $this->Session->write('key', $source);
-                    $accum['MaterialCode'] = true;
-                }
-                return $accum;
-            }, ['MaterialCode' => false, 'duplicates' => false]);
-
-        if(!$result['MaterialCode']){
-            $this->Flash->error("You must target the MaterialCode");
-            $return = false;
-        }
-        if($result['duplicates']){
-            $return = false;
-        }
-        return $return;
-    }
-
-    public function processAddMap()
+    public function _processAddMap()
     {
         $target_table = $this->Session->read('target_table');
         $this->$target_table = $this->getTableLocator()->get($target_table);
@@ -123,9 +90,8 @@ class CsvImportsController extends AppController
         $map = $this->Session->read('map');
         $key = $this->Session->read('key');
         $reduced_map = $this->reduceMap($map, $key);
-        $import = $this->CsvImports->import($this->getFileName());
-
         $manual_map = $this->filterManualEntriesInReducedMap($reduced_map);
+        $import = $this->CsvImports->import($this->getFileName());
 
         //Find existing records
         $find_array = collection($import)
@@ -163,6 +129,39 @@ class CsvImportsController extends AppController
         $this->set(compact( 'key', 'reduced_map', 'primary_key', 'manual_map', 'records'));
     }
 
+    private function validMap(): bool
+    {
+        $map = $this->getRequest()->getData();
+        $assigned_targets = [];
+        $return = true;
+        $result = collection($map)
+            ->reduce(function($accum, $target, $source) use (&$assigned_targets){
+                if (!empty($target)) {
+                    if (!array_key_exists($target, $assigned_targets)) {
+                        $assigned_targets[$target] = $target;
+                    }
+                    else {
+                        $this->Flash->error("You cannot assign $target to two sources");
+                        $accum['duplicates'] = true;
+                    }
+                }
+                if ($target == 'MaterialCode') {
+                    $this->Session->write('key', $source);
+                    $accum['MaterialCode'] = true;
+                }
+                return $accum;
+            }, ['MaterialCode' => false, 'duplicates' => false]);
+
+        if(!$result['MaterialCode']){
+            $this->Flash->error("You must target the MaterialCode");
+            $return = false;
+        }
+        if($result['duplicates']){
+            $return = false;
+        }
+        return $return;
+    }
+
     private function reduceMap($map, $key)
     {
         return collection($map)
@@ -179,7 +178,7 @@ class CsvImportsController extends AppController
      *
      * @return mixed|null
      */
-    public function ormTables() {
+    private function ormTables() {
         $tableDir = new Folder(APP.'Model'.DS.'Table');
         $allFiles = ($tableDir->find('.*Table.php'));
         $files = collection($allFiles)

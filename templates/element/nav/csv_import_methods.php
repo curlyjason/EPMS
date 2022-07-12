@@ -1,6 +1,5 @@
 <?php
 
-use App\Lib\Introspection;
 use \App\View\AppView;
 
 /**
@@ -8,13 +7,4 @@ use \App\View\AppView;
  * @var string $controller
  */
 
-
-$links = collection(Introspection::getEndpoints($controller))
-    ->map(function($method) use ($controller) {
-        return $this->Html->link($method, ['controller' => $controller, 'action' => $method]);
-    })
-    ->toArray();
-$ul_struct = [
-    $controller => $links
-];
-echo $this->Html->nestedList($ul_struct);
+echo $this->Html->nestedList($this->Navigation->linksFromPublicFunctions($controller));
