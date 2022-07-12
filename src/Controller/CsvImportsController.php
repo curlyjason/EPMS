@@ -49,7 +49,6 @@ class CsvImportsController extends AppController
 
     public function add()
     {
-        $this->Session->write("$this->uid.action", 'add');
         $table = $this->CsvImports;
         $targets = $this->ormTables();
 
@@ -69,7 +68,6 @@ class CsvImportsController extends AppController
     public function map()
     {
         $target_table = $this->Session->read('target_table');
-        $action = $this->Session->read("$this->uid.action");
         $this->$target_table = $this->getTableLocator()->get($target_table);
         $this->ImportedData = $this->CsvImports->import($this->getFileName());
         $target_columns = $this->$target_table->getSchema()->columns();
@@ -81,7 +79,7 @@ class CsvImportsController extends AppController
             return $this->redirect(['action' => 'processAddMap']);
         }
 
-        $this->set(compact('target_columns', 'source_columns', 'target_table', 'action'));
+        $this->set(compact('target_columns', 'source_columns', 'target_table'));
     }
 
     public function validMap(): bool
@@ -124,7 +122,6 @@ class CsvImportsController extends AppController
         $primary_key = $this->primaryKey = $this->$target_table->getPrimaryKey();
         $map = $this->Session->read('map');
         $key = $this->Session->read('key');
-        $action = $this->Session->read("$this->uid.action");
         $reduced_map = $this->reduceMap($map, $key);
         $import = $this->CsvImports->import($this->getFileName());
 
@@ -163,7 +160,7 @@ class CsvImportsController extends AppController
             }
         }
 
-        $this->set(compact( 'key', 'reduced_map', 'primary_key', 'action', 'manual_map', 'records'));
+        $this->set(compact( 'key', 'reduced_map', 'primary_key', 'manual_map', 'records'));
     }
 
     private function reduceMap($map, $key)

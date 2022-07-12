@@ -15,7 +15,6 @@ use Stacks\Model\Lib\Layer;
  * @var array $manual_map
  * @var Layer $imp_layer
  * @var string $primary_key
- * @var string $action
  */
 
 $columnHeader = function($target_key, $source_key) use ($manual_map){
@@ -39,7 +38,7 @@ $trElementPicker = function($record){
 }
 
 ?>
-<h1><?= $action ?></h1>
+<h1><?= Add ?></h1>
 <table>
     <tbody>
     <tr>
