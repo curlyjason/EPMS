@@ -38,7 +38,7 @@ $trElementPicker = function($record){
 }
 
 ?>
-<h1><?= Add ?></h1>
+<h1>Add</h1>
 <table>
     <tbody>
     <tr>

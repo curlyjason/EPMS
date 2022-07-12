@@ -10,6 +10,7 @@ use Cake\Cache\Cache;
 use Cake\Filesystem\Folder;
 use Cake\Http\Session;
 use Cake\ORM\Entity;
+use Cake\ORM\Table;
 use Cake\Utility\Inflector;
 use Laminas\Diactoros\UploadedFile;
 use Stacks\Constants\LayerCon;
@@ -35,6 +36,11 @@ class CsvImportsController extends AppController
      */
     private $Session;
     private $uid;
+    /**
+     * @var Table $TargetTable
+     * This is the table object determined by what is stored in the session
+     */
+    private $TargetTable;
 
     public function initialize(): void
     {
@@ -59,59 +65,41 @@ class CsvImportsController extends AppController
             $file = $this->getRequest()->getData('file');
             $this->Session->write('target_table', $this->getRequest()->getData('target'));
             $file->moveTo($this->getFilePath());
-            return $this->redirect(['action' => '_map']);
+            return $this->redirect(['action' => 'map']);
         }
 
         $this->set(compact('table', 'targets'));
     }
 
-    public function _map()
+    public function map()
     {
-        $target_table = $this->Session->read('target_table');
-        $this->$target_table = $this->getTableLocator()->get($target_table);
-        $this->ImportedData = $this->CsvImports->import($this->getFileName());
-        $target_columns = $this->$target_table->getSchema()->columns();
+        $this->setTargetTableFromSession(); //creates the schema
+        $target_columns = $this->TargetTable->getSchema()->columns();
         $target_columns = array_combine($target_columns, $target_columns);
+        $this->CsvImports->import($this->getFileName());
         $source_columns = $this->CsvImports->getSchema()->columns();
 
         if($this->getRequest()->is('post') && $this->validMap()){
             $this->Session->write('map', $this->getRequest()->getData());
-            return $this->redirect(['action' => '_processAddMap']);
+            return $this->redirect(['action' => 'processAddMap']);
         }
 
+        $target_table = $this->TargetTable->getAlias();
         $this->set(compact('target_columns', 'source_columns', 'target_table'));
     }
 
-    public function _processAddMap()
+    public function processAddMap()
     {
-        $target_table = $this->Session->read('target_table');
-        $this->$target_table = $this->getTableLocator()->get($target_table);
-        $primary_key = $this->primaryKey = $this->$target_table->getPrimaryKey();
-        $map = $this->Session->read('map');
-        $key = $this->Session->read('key');
-        $reduced_map = $this->reduceMap($map, $key);
-        $manual_map = $this->filterManualEntriesInReducedMap($reduced_map);
+        $this->setTargetTableFromSession();
+        list($reduced_map, $manual_map) = $this->fetchColumnHeaderMaps();
         $import = $this->CsvImports->import($this->getFileName());
 
-        //Find existing records
-        $find_array = collection($import)
-            ->reduce(function($accum, $record) use ($key){
-                $accum[] = $record->$key;
-                return $accum;
-            }, []);
-        $existing_records = $this->$target_table->find('all')
-            ->where(["$primary_key IN" => $find_array])
-            ->toArray();
-
-        //Setup patch data
-        $patch = $this->convertImportToPatchData($import, $reduced_map);
-
-        //Build entities to review
-        $records = $this->$target_table->patchEntities($existing_records, $patch);
-
+        $existing_records = $this->getExistingRecordsForImportData($this->primaryKey);
+        $patch_data = $this->convertImportToPatchData($import, $reduced_map);
+        $records = $this->TargetTable->patchEntities($existing_records, $patch_data);
 
         if ($this->getRequest()->is('post')){
-            $result = $this->$target_table->saveMany($records);
+            $result = $this->TargetTable->saveMany($records);
             if($result){
                 $this->Flash->success("All records updated!");
                 $this->redirect('pages/home');
@@ -126,7 +114,8 @@ class CsvImportsController extends AppController
             }
         }
 
-        $this->set(compact( 'key', 'reduced_map', 'primary_key', 'manual_map', 'records'));
+        $primary_key = $this->primaryKey;
+        $this->set(compact( 'reduced_map', 'primary_key', 'manual_map', 'records'));
     }
 
     private function validMap(): bool
@@ -162,23 +151,13 @@ class CsvImportsController extends AppController
         return $return;
     }
 
-    private function reduceMap($map, $key)
-    {
-        return collection($map)
-            ->reduce(function($accum, $target, $source) use ($key){
-                if(!empty($target) && $source != $key){
-                    $accum[$source] = $target;
-                }
-                return $accum;
-            }, []);
-    }
-
     /**
      * Get an array of standard ORM table names (in alias form)
      *
-     * @return mixed|null
+     * @return array|null
      */
-    private function ormTables() {
+    private function ormTables(): array
+    {
         $tableDir = new Folder(APP.'Model'.DS.'Table');
         $allFiles = ($tableDir->find('.*Table.php'));
         $files = collection($allFiles)
@@ -229,18 +208,71 @@ class CsvImportsController extends AppController
                     }, []);
                 $accum[$key][$this->primaryKey] = $record->id;
                 $target_table = $this->Session->read('target_table');
-                $accum[$key] = $this->$target_table->fixPatchData($accum[$key]);
+                $accum[$key] = $this->TargetTable->fixPatchData($accum[$key]);
                 return $accum;
             }, []);
     }
 
-    private function filterManualEntriesInReducedMap($reduced_map)
+    /**
+     * @param array $import
+     * @param $key
+     * @param $target_table
+     * @param $primary_key
+     * @return array
+     */
+    private function getExistingRecordsForImportData($primary_key): array
+    {
+        $import = $this->CsvImports->import($this->getFileName());
+        $key = $this->Session->read('key');
+        $find_array = collection($import)
+            ->reduce(function ($accum, $record) use ($key) {
+                $accum[] = $record->$key;
+                return $accum;
+            }, []);
+        $existing_records = $this->TargetTable->find('all')
+            ->where(["$primary_key IN" => $find_array])
+            ->toArray();
+        return $existing_records;
+    }
+
+    private function setTargetTableFromSession(): void
+    {
+        $target_table = $this->Session->read('target_table');
+        $this->TargetTable = $this->getTableLocator()->get($target_table);
+        $this->primaryKey = $this->TargetTable->getPrimaryKey();
+    }
+
+    /**
+     * @return array
+     */
+    private function fetchColumnHeaderMaps(): array
+    {
+        $map = $this->Session->read('map');
+        $key = $this->Session->read('key');
+        $reduced_map = $this->reduceMap($map, $key);
+        $manual_map = $this->filterManualEntriesInReducedMap($reduced_map);
+        return array($reduced_map, $manual_map);
+    }
+
+    private function reduceMap($map, $key): array
+    {
+        return collection($map)
+            ->reduce(function($accum, $target, $source) use ($key){
+                if(!empty($target) && $source != $key){
+                    $accum[$source] = $target;
+                }
+                return $accum;
+            }, []);
+    }
+
+    private function filterManualEntriesInReducedMap($reduced_map): array
     {
         return collection($reduced_map)
             ->filter(function($target_column, $source_column){
                 return strtolower(Inflector::camelize($target_column)) != strtolower(Inflector::camelize($source_column));
             })->toArray();
     }
+
 
 
 }
