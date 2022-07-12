@@ -66,25 +66,6 @@ class CsvImportsController extends AppController
         $this->set(compact('table', 'targets'));
     }
 
-    public function edit()
-    {
-        $this->Session->write("$this->uid.action", 'edit');
-        $table = $this->CsvImports;
-        $targets = $this->ormTables();
-
-        if($this->getRequest()->is('post')){
-            /**
-             * @var UploadedFile $file
-             */
-            $file = $this->getRequest()->getData('file');
-            $this->Session->write('target_table', $this->getRequest()->getData('target'));
-            $file->moveTo($this->getFilePath());
-            return $this->redirect(['action' => 'map']);
-        }
-
-        $this->set(compact('table', 'targets'));
-    }
-
     public function map()
     {
         $target_table = $this->Session->read('target_table');
@@ -97,8 +78,7 @@ class CsvImportsController extends AppController
 
         if($this->getRequest()->is('post') && $this->validMap()){
             $this->Session->write('map', $this->getRequest()->getData());
-            $process = $action === 'add' ? 'processAddMap' : 'processMap';
-            return $this->redirect(['action' => $process]);
+            return $this->redirect(['action' => 'processAddMap']);
         }
 
         $this->set(compact('target_columns', 'source_columns', 'target_table', 'action'));
@@ -137,35 +117,6 @@ class CsvImportsController extends AppController
         return $return;
     }
 
-    public function processMap()
-    {
-        $target_table = $this->Session->read('target_table');
-        $this->$target_table = $this->getTableLocator()->get($target_table);
-        $primary_key = $this->primaryKey = $this->$target_table->getPrimaryKey();
-        $map = $this->Session->read('map');
-        $key = $this->Session->read('key');
-        $action = $this->Session->read("$this->uid.action");
-        $reduced_map = $this->reduceMap($map, $key);
-        $import = $this->CsvImports->import($this->getFileName());
-        $imp_layer = new Layer($import, 'CsvImport');
-        $find_array = collection($import)
-            ->reduce(function($accum, $record) use ($key){
-                $accum[] = $record->$key;
-                return $accum;
-            }, []);
-        $target_records = $this->$target_table->find('all')
-            ->where(["$primary_key IN" => $find_array])
-            ->toArray();
-
-        if ($this->getRequest()->is('post')){
-            $patch = $this->buildPatchData($target_records, $imp_layer, $reduced_map);
-            $entities_to_save = $this->$target_table->patchEntities($target_records, $patch);
-            $result = $this->$target_table->saveMany($entities_to_save);
-        }
-
-        $this->set(compact( 'key', 'target_records', 'imp_layer', 'reduced_map', 'primary_key', 'action'));
-    }
-
     public function processAddMap()
     {
         $target_table = $this->Session->read('target_table');
@@ -175,11 +126,11 @@ class CsvImportsController extends AppController
         $key = $this->Session->read('key');
         $action = $this->Session->read("$this->uid.action");
         $reduced_map = $this->reduceMap($map, $key);
-        $manual_map = $this->filterManualEntriesInReducedMap($reduced_map);
         $import = $this->CsvImports->import($this->getFileName());
 
+        $manual_map = $this->filterManualEntriesInReducedMap($reduced_map);
+
         //Find existing records
-        $imp_layer = new Layer($import, 'CsvImport');
         $find_array = collection($import)
             ->reduce(function($accum, $record) use ($key){
                 $accum[] = $record->$key;
@@ -197,18 +148,7 @@ class CsvImportsController extends AppController
 
 
         if ($this->getRequest()->is('post')){
-//            $patch = $this->convertImportToPatchData($import, $reduced_map);
-//            $entities = $this->$target_table->newEntities($patch);
-//            $error = false;
-//            foreach ($entities as $entity) {
-//                if($entity->hasErrors()){
-//                    $error = true;
-//                    $this->Flash->error(var_export($entity->getErrors(), true) . " - Revise table setup. Add to fixPatchData implementation");
-//                }
-//            }
-//            if(!$error){
-                $result = $this->$target_table->saveMany($records);
-//            }
+            $result = $this->$target_table->saveMany($records);
             if($result){
                 $this->Flash->success("All records updated!");
                 $this->redirect('pages/home');
@@ -224,22 +164,6 @@ class CsvImportsController extends AppController
         }
 
         $this->set(compact( 'key', 'reduced_map', 'primary_key', 'action', 'manual_map', 'records'));
-
-    }
-
-    private function buildPatchData(array $target_records, Layer $imp_layer, $reduced_map)
-    {
-        return collection($target_records)
-            ->reduce(function($accum, $target_record) use ($imp_layer, $reduced_map){
-                $full_patch = collection ($reduced_map)
-                    ->reduce(function($patch, $target_key, $source_key) use ($target_record, $imp_layer){
-                        $patch[$target_key] = $imp_layer->element($target_record->{$this->primaryKey}, LayerCon::LAYERACC_ID)->$source_key;
-                        return $patch;
-                    }, []);
-                $full_patch[$this->primaryKey] = $target_record->{$this->primaryKey};
-                $accum[] = $full_patch;
-             return $accum;
-        }, []);
     }
 
     private function reduceMap($map, $key)
